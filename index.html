@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Status</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #paymentStatus {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #success, #failure, #processing {
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        #retryButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="paymentStatus">
+        <div id="success">
+            <img src="Check Correct GIF - Check Correct Right - Discover & Share GIFs.jpg" alt="Success Icon">
+            <p>Payment Successful!</p>
+            <button id="retryButton" onclick="retryPayment()">Retry</button>
+        </div>
+
+        <div id="failure">
+            <img src="alert-icon-red-11.png" alt="Failure Icon">
+            <p>Payment Failed. Please try again later.</p>
+            <button id="retryButton" onclick="retryPayment()">Retry</button>
+        </div>
+
+        <div id="processing">
+            <img src="Loading GIF - Loading - Discover & Share GIFs.jpg" alt="Processing Icon">
+            <p>Processing your payment...</p>
+        </div>
+    </div>
+  
+    <script>
+        // Simulating payment processing
+        setTimeout(() => {
+            const paymentStatus = Math.random() < 0.5 ? 'success' : 'failure';
+            showPaymentStatus(paymentStatus);
+        }, 3000);
+
+        function showPaymentStatus(status) {
+            const successDiv = document.getElementById('success');
+            const failureDiv = document.getElementById('failure');
+            const processingDiv = document.getElementById('processing');
+
+            switch (status) {
+                case 'success':
+                    successDiv.style.display = 'block';
+                    break;
+                case 'failure':
+                    failureDiv.style.display = 'block';
+                    break;
+            }
+
+            processingDiv.style.display = 'none';
+        }
+
+        function retryPayment() {
+            const successDiv = document.getElementById('success');
+            const failureDiv = document.getElementById('failure');
+            const processingDiv = document.getElementById('processing');
+
+            successDiv.style.display = 'none';
+            failureDiv.style.display = 'none';
+            processingDiv.style.display = 'block';
+
+            // Simulating payment processing again
+            setTimeout(() => {
+                const paymentStatus = Math.random() < 0.5 ? 'success' : 'failure';
+                showPaymentStatus(paymentStatus);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
